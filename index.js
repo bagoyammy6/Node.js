@@ -150,7 +150,9 @@ app.use('/', require('./routes/login'));
 app.use('/admin3', require('./routes/admin3'));
 app.use('/address-book', require('./routes/address-book'));
 app.use('/product', require('./routes/product'));
-
+app.use('/order',require('./routes/order'))
+app.use('/order_detail',require('./routes/order_detail'))
+app.use('/member',require('./routes/member'))
 app.get('/try-sess', (req, res)=>{
     req.session.myVar = req.session.myVar || 0;
     req.session.myVar++;
@@ -176,8 +178,8 @@ app.get('/try-db', async (req, res)=>{
 });
 
 app.post('/test_avatar', uploadImg.none(), async (req, res)=>{
-    const sql = "INSERT INTO `test_avatar`(`avatar`, `name`) VALUES (?, ?)";
-    const [r] = await db.query(sql, [req.body.avatar, req.body.name]);
+    const sql = "INSERT INTO `test_avatar`(`avatar`) VALUES (?)";
+    const [r] = await db.query(sql, [req.body.avatar]);
     res.json(r);
 });
 app.get('/test_avatar/:id', async (req, res)=>{
